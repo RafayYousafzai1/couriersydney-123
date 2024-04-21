@@ -1,0 +1,70 @@
+.root {
+    background-color: rgba(255, 188, 2, 0.521), 0.521)5, 0.521);
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, #062343 70%),
+      url(https://img.freepik.com/free-photo/freight-transportation-delivering-cargo-containers-via-trucking-service-generative-ai_188544-9389.jpg?t=st=1699002441~exp=1699006041~hmac=682dcc35f29f3df536e149e9328b0767881cddc2a6199db04eb9a1409f67714f&w=996);
+    padding-top: calc(var(--mantine-spacing-xl) * 3);
+    padding-bottom: calc(var(--mantine-spacing-xl) * 3);
+  }
+  
+  .inner {
+    display: flex;
+    justify-content: space-between;
+  
+    @media (max-width: $mantine-breakpoint-md) {
+      flex-direction: column;
+    }
+  }
+  
+  .image {
+    @media (max-width: $mantine-breakpoint-md) {
+      display: none;
+    }
+  }
+  
+  .content {
+    padding-top: calc(var(--mantine-spacing-xl) * 2);
+    padding-bottom: calc(var(--mantine-spacing-xl) * 2);
+    margin-right: calc(var(--mantine-spacing-xl) * 3);
+  
+    @media (max-width: $mantine-breakpoint-md) {
+      margin-right: 0;
+    }
+  }
+  
+  .title {
+    color: var(--mantine-color-white);
+    font-family: Greycliff CF, var(--mantine-font-family);
+    font-weight: 900;
+    line-height: 1.05;
+    max-width: rem(500px);
+    font-size: rem(48px);
+  
+    @media (max-width: $mantine-breakpoint-md) {
+      max-width: 100%;
+      font-size: rem(34px);
+      line-height: 1.15;
+    }
+  }
+  
+  .description {
+    color: var(--mantine-color-white);
+    opacity: 0.75;
+    max-width: rem(500px);
+  
+    @media (max-width: $mantine-breakpoint-md) {
+      max-width: 100%;
+    }
+  }
+  
+  .control {
+    padding-left: rem(50px);
+    padding-right: rem(50px);
+    font-family: Greycliff CF, var(--mantine-font-family);
+    font-size: rem(22px);
+  
+    @media (max-width: $mantine-breakpoint-md) {
+      width: 100%;
+    }
+  }
