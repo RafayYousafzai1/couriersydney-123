@@ -15,10 +15,8 @@ import { Button, Modal } from "@mantine/core";
 import { updateDoc } from "@/api/firebase/functions/upload";
 import { useDisclosure } from "@mantine/hooks";
 import { AddUser } from "../Index";
-import {
-  deleteUserAcc,
-  sendPasswordResetEmailLink,
-} from "@/api/firebase/functions/auth";
+import { deleteUserAcc } from "@/api/firebase/functions/auth";
+import sendResetPasswordEmail from "@/api/sendResetPasswordEmail";
 
 // Role options for the Select component
 const roleOptions = [
@@ -66,8 +64,8 @@ export default function Users({ users }) {
     console.log("User Info:", changedUser);
   };
 
-  const handlePassReset = (email) => {
-    sendPasswordResetEmailLink(email);
+  const handlePassReset = (email, password) => {
+    sendResetPasswordEmail(email, password);
   };
 
   const handleDeleteUser = (email, pass) => {
@@ -160,7 +158,7 @@ export default function Users({ users }) {
                       <Button
                         variant="filled"
                         color="#F14902"
-                        onClick={() => handlePassReset(row.email)}
+                        onClick={() => handlePassReset(row.email, row.password)}
                       >
                         Send
                       </Button>

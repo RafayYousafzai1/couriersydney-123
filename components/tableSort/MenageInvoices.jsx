@@ -76,7 +76,7 @@ export default function MenageInvoices({ invoice, title }) {
       <TableCell>${row?.totalPriceWithGST?.toFixed(2)}</TableCell>
       <TableCell>{row.service}</TableCell>
       <TableCell>{row?.currentStatus || "Pending"}</TableCell>
-      <TableCell>{row?.progressInformation?.booked || "Pending"}</TableCell>
+      {/* <TableCell>{row?.progressInformation?.booked || "Pending"}</TableCell> */}
       {/* <TableCell>{row?.progressInformation?.delivered || "Pending"}</TableCell> */}
       {/* <TableCell style={{ textTransform: "capitalize" }}>
         ${row?.totalPrice}
@@ -141,7 +141,7 @@ export default function MenageInvoices({ invoice, title }) {
             <TableCell>Current Status</TableCell>
             {/* <TableCell>Time</TableCell> */}
             {/* <TableCell>Total Price</TableCell> */}
-            <TableCell>Booked</TableCell>
+            {/* <TableCell>Booked</TableCell> */}
             {/* <TableCell>Delivered</TableCell> */}
             <TableCell>Action</TableCell>
           </TableRow>

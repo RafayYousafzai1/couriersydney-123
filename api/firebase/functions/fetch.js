@@ -48,31 +48,26 @@ async function fetchFrequentAddresses() {
 }
 
 async function fetchPlace_booking() {
-  const user = JSON.parse(localStorage.getItem("userDoc"));
-  if (!user) {
-    notify("You're not logged in");
-    return [];
-  }
   try {
+    const user = await fetchUserData(); // Assuming fetchUserData is defined elsewhere and you want to call it here
     const collectionRef = collection(db, "place_bookings");
     const q = query(
       collectionRef,
       where("userEmail", "==", user.email),
-      orderBy("createdAt", "asc") // Order by creation date in ascending order
+      orderBy("createdAt", "desc") // Order by creation date in ascending order
     );
     const querySnapshot = await getDocs(q);
     const documents = [];
     querySnapshot.forEach((doc) => {
       documents.push({ id: doc.id, ...doc.data() });
     });
-    fetchUserData(); // Assuming fetchUserData is defined elsewhere and you want to call it here
     return documents;
   } catch (error) {
     notify("Something Went Wrong", error);
+    console.log(error);
     return [];
   }
 }
-
 
 async function fetchPlace_job() {
   const user = JSON.parse(localStorage.getItem("userDoc"));
@@ -200,6 +195,26 @@ async function getBookingsBetweenDates(
   }
 }
 
+async function fetchAllFirstNames() {
+  try {
+    const q = query(collection(db, "users"));
+    const querySnapshot = await getDocs(q);
+
+    const firstNames = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.firstName) {
+        firstNames.push(data.firstName);
+      }
+    });
+
+    return firstNames;
+  } catch (error) {
+    console.error("Error fetching first names:", error);
+    throw error;
+  }
+}
+
 async function getPaidDocumentsFromCollection(collectionName) {
   try {
     const user = JSON.parse(localStorage.getItem("userDoc"));
@@ -231,5 +246,6 @@ export {
   getCollection,
   fetchOptions,
   getBookingsBetweenDates,
+  fetchAllFirstNames,
   getPaidDocumentsFromCollection,
 };
