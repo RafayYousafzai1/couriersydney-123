@@ -28,7 +28,7 @@ export default function DateTimePickers({ handleDateTimeChange }) {
   return (
     <DateTimePicker
       valueFormat="DD MMM YYYY hh:mm A"
-      label="Pick date and time"
+      label="Ready date and time"
       placeholder="Pick date and time"
       onChange={handleDateTimeChanges}
     />
