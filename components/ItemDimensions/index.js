@@ -25,6 +25,7 @@ export default function ItemDimensions({
     width: "",
     length: "",
     type: "",
+    qty: "",
   };
 
   const [items, setItems] = useState(defaultItems || []);
@@ -47,7 +48,8 @@ export default function ItemDimensions({
       !formData.height ||
       !formData.width ||
       !formData.length ||
-      !formData.type
+      !formData.type ||
+      !formData.qty
     ) {
       alert("Please fill in all fields");
       return;
@@ -61,6 +63,7 @@ export default function ItemDimensions({
       width: formData.width,
       length: formData.length,
       type: formData.type,
+      qty: formData.qty,
     };
 
     setItems((prevItems) => [...prevItems, newItem]);
@@ -172,6 +175,18 @@ export default function ItemDimensions({
               ))}
           </TextField>
         </Box>
+        <TextField
+          InputProps={{
+            endAdornment: <InputAdornment position="start">kg</InputAdornment>,
+          }}
+          type="number"
+          fullWidth
+          style={{ marginBottom: ".5rem" }}
+          label="Quantity"
+          name="qty"
+          value={formData.qty}
+          onChange={handleChange}
+        />
         <Button style={{ width: "100%" }} onClick={handleSubmit}>
           Submit
         </Button>

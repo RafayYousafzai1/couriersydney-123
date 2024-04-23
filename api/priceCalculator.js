@@ -19,14 +19,16 @@ async function calculatePrice(data) {
 
   // Determine the job code based on weight, dimensions, and cubic capacity
   const { items } = data;
-  const totalWeight = items.reduce(
-    (total, item) => total + parseInt(item.weight),
-    0
-  );
-  const totalCubicCapacity = items.reduce((total, item) => {
-    const volume = (item.length * item.width * item.height) / 4000;
-    return total + volume;
-  }, 0);
+  let totalWeight = 0; // Initialize total weight
+  let totalCubicCapacity = 0; // Initialize total cubic capacity
+
+  // Loop through each item and calculate total weight and cubic capacity
+  items.forEach((item) => {
+    const quantity = parseInt(item.qty); // Parse quantity to integer
+    totalWeight += parseInt(item.weight) * quantity; // Add weighted quantity to total weight
+    totalCubicCapacity +=
+      ((item.length * item.width * item.height) / 4000) * quantity; // Add cubic capacity for each quantity
+  });
 
   // Calculate the number of pallet spaces
   palletSpaces = Math.ceil(totalCubicCapacity);
@@ -93,6 +95,25 @@ async function calculatePrice(data) {
     // Anything over 4000kgs or 4 pallet spaces
     requestQuote = true;
   }
+
+  // New condition for overriding per km price
+  const isCourierOrHT = ["Courier", "HT", "1T", "2T"].includes(serviceType);
+  const distanceGreaterThan80Km = distanceValueKm > 80;
+  const weightOrCubicWeightLessThan1000kg =
+    totalWeight < 1000 || totalCubicCapacity < 1000;
+
+  if (
+    isCourierOrHT &&
+    distanceGreaterThan80Km &&
+    weightOrCubicWeightLessThan1000kg
+  ) {
+    perKmRates[serviceType] = 2.1;
+  } else if (isCourierOrHT && distanceGreaterThan80Km) {
+    perKmRates[serviceType] = 2.5;
+  }
+
+  // Apply the updated per km rate
+  const basePrice = distanceValueKm * perKmRates[serviceType];
 
   // Service charges are not applied for 2T or 4T jobs
   if (!requestQuote && returnType !== "2T" && returnType !== "4T") {
